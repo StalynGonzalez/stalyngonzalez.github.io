@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario con Gráfico</title>
+  <!-- Incluir Chart.js desde el CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<!-- Formulario -->
+<form id="miFormulario">
+  <label for="dato1">Dato 1:</label>
+  <input type="number" id="dato1" required>
+  
+  <label for="dato2">Dato 2:</label>
+  <input type="number" id="dato2" required>
+
+  <button type="button" onclick="generarGrafico()">Generar Gráfico</button>
+</form>
+
+<!-- Contenedor del gráfico -->
+<div style="width: 80%; margin: auto;">
+  <canvas id="miGrafico"></canvas>
+</div>
+
+<!-- Script para generar el gráfico -->
+<script>
+  function generarGrafico() {
+    // Obtener los datos del formulario
+    var dato1 = parseFloat(document.getElementById('dato1').value);
+    var dato2 = parseFloat(document.getElementById('dato2').value);
+
+    // Configurar los datos para el gráfico
+    var datos = {
+      labels: ['Dato 1', 'Dato 2'],
+      datasets: [{
+        label: 'Datos',
+        data: [dato1, dato2],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)'
+        ],
+        borderWidth: 1
+      }]
+    };
+
+    // Configurar opciones del gráfico
+    var opciones = {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    };
+
+    // Obtener el contexto del lienzo
+    var contexto = document.getElementById('miGrafico').getContext('2d');
+
+    // Crear el gráfico
+    var miGrafico = new Chart(contexto, {
+      type: 'bar', // Puedes cambiar el tipo de gráfico aquí (bar, line, pie, etc.)
+      data: datos,
+      options: opciones
+    });
+  }
+</script>
+
+</body>
+</html>
